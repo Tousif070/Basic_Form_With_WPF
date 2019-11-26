@@ -1,0 +1,93 @@
+﻿<Window x:Class="WPF_Form_With_Database.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Form_With_Database"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="700" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150*" />
+            <ColumnDefinition Width="550*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="#87CEFA">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Menu" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="24" FontFamily="helvetica" FontWeight="Bold" />
+            </StackPanel>
+
+            <Button x:Name="FormMenuButton" Grid.Row="1" Content="Form" FontSize="18" FontFamily="helvetica" Background="#E0FFFF" />
+            <Button x:Name="SearchInfoMenuButton" Grid.Row="2" Content="Search Info" FontSize="18" FontFamily="helvetica" Background="#E0FFFF" />
+            <Button x:Name="ExitButton" Grid.Row="3" Content="Exit" Margin="0,494,0,0" FontSize="18" FontFamily="helvetica" Background="#DC143C" Foreground="White" />
+
+        </Grid>
+
+        <StackPanel x:Name="FormPanel" Grid.Column="1" Background="#AADFFF" Visibility="Visible">
+            
+            <TextBlock Text="Fill Up The Following Form" Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="20" FontFamily="helvetica" />
+
+            <TextBlock x:Name="Alert" Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="18" FontFamily="helvetica" Visibility="Collapsed" />
+
+            <WrapPanel Margin="20,25,0,0">
+                <Label Content="Enter Username:" FontSize="16" FontFamily="helvetica" />
+                <TextBox x:Name="FormTbx1" Margin="94,0,0,0" Width="270" FontSize="16" FontFamily="helvetica" />
+            </WrapPanel>
+            
+            <WrapPanel Margin="20,10,0,0">
+                <Label Content="Favorite Football Team (Intl.):" FontSize="16" FontFamily="helvetica" />
+                <TextBox x:Name="FormTbx2" Margin="7,0,0,0" Width="270" FontSize="16" FontFamily="helvetica" />
+            </WrapPanel>
+            
+            <WrapPanel Margin="20,10,0,0">
+                <Label Content="Favorite Football Team (Club):" FontSize="16" FontFamily="helvetica" />
+                <TextBox x:Name="FormTbx3" Margin="0,0,0,0" Width="270" FontSize="16" FontFamily="helvetica" />
+            </WrapPanel>
+            
+            <WrapPanel Margin="20,10,0,0">
+                <Label Content="Favorite Football Player:" FontSize="16" FontFamily="helvetica" />
+                <TextBox x:Name="FormTbx4" Margin="41,0,0,0" Width="270" FontSize="16" FontFamily="helvetica" />
+            </WrapPanel>
+
+            <Button x:Name="SubmitButton" Content="Submit" Height="30" Width="90" Margin="375,30,0,0" FontSize="18" FontFamily="helvetica" Background="#4682B4" Foreground="White" />
+
+        </StackPanel>
+
+        <StackPanel x:Name="SearchPanel" Grid.Column="1" Background="#AADFFF" Visibility="Collapsed">
+
+            <TextBlock Text="View Data From Database" Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="20" FontFamily="helvetica" />
+
+            <WrapPanel Margin="0,30,20,0" HorizontalAlignment="Center">
+                <Label Content="Enter Username:" FontSize="18" FontFamily="helvetica" />
+                <TextBox Margin="5,0,0,0" Width="250" FontSize="18" FontFamily="helvetica" />
+                <Button Content="Search" Width="80" Margin="10,0,0,0" FontSize="18" FontFamily="helvetica" Background="#4682B4" Foreground="White" />
+            </WrapPanel>
+
+            <StackPanel x:Name="DataOutputPanel" Background="#AADFFF" Visibility="Collapsed">
+
+                <TextBlock Text="Data" Margin="0,30,10,0" HorizontalAlignment="Center" FontSize="20" FontFamily="helvetica" />
+
+                <Label Content="Username: " Margin="10,20,0,0" FontSize="16" FontFamily="helvetica" />
+                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
+                <Label Content="Favorite Football Team (Intl.): " Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
+                <Label Content="Favorite Football Team (Club): " Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
+                <Label Content="Favorite Football Player: " Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
+                
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

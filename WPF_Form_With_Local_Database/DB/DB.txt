@@ -1,0 +1,11 @@
+1. CREATE DATABASE myfootball;
+
+2. CREATE TABLE IF NOT EXISTS myfootballinfo(
+    id int NOT NULL AUTO_INCREMENT,
+    username varchar(100) NOT NULL,
+    internationalteam varchar(100) NOT NULL,
+    clubteam varchar(100) NOT NULL,
+    player varchar(100) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (username)
+    );
