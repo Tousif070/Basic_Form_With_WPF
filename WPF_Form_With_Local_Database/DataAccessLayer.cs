@@ -21,11 +21,15 @@ namespace WPF_Form_With_Database
 
         private DataAccessLayer()
         {
-            server = "localhost";
+            //server = "localhost";
+            server = "remotemysql.com";
             port = "3306";
-            database = "myfootball";
-            uid = "root";
-            pass = "";
+            //database = "myfootball";
+            database = "OH5wNTsJw7";
+            //uid = "root";
+            uid = "OH5wNTsJw7";
+            //pass = "";
+            pass = "P58rpDdjJ0";
             connectionString = "SERVER=" + server + ";" + "PORT=" + port + ";" + "DATABASE=" + database + ";" + "USERNAME=" + uid + ";" + "PASSWORD=" + pass + ";";
         }
 
