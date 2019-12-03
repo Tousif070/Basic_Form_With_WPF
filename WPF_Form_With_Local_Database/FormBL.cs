@@ -10,46 +10,9 @@ namespace WPF_Form_With_Database
 {
     class FormBL
     {
-        private String username = "";
-        private String internationalTeam = "";
-        private String clubTeam = "";
-        private String player = "";
-
-        public String Username
+        public bool checkEmpty(User user)
         {
-            set
-            {
-                username = value;
-            }
-        }
-
-        public String InternationalTeam
-        {
-            set
-            {
-                internationalTeam = value;
-            }
-        }
-
-        public String ClubTeam
-        {
-            set
-            {
-                clubTeam = value;
-            }
-        }
-
-        public String Player
-        {
-            set
-            {
-                player = value;
-            }
-        }
-
-        public bool checkEmpty()
-        {
-            if (username.Equals("") || internationalTeam.Equals("") || clubTeam.Equals("") || player.Equals(""))
+            if (user.Username.Equals("") || user.InternationalTeam.Equals("") || user.ClubTeam.Equals("") || user.Player.Equals(""))
             {
                 return true;
             }
@@ -59,7 +22,7 @@ namespace WPF_Form_With_Database
             }
         }
 
-        public String checkUsername()
+        public String checkUsername(String username)
         {
             DataAccessLayer.Instance.createDatabaseConnection();
             String query = "SELECT * FROM myfootballinfo WHERE username='" + username + "';";
@@ -85,14 +48,14 @@ namespace WPF_Form_With_Database
             }
         }
 
-        public void insertData()
+        public void insertData(User user)
         {
             DataAccessLayer.Instance.createDatabaseConnection();
-            String query = "INSERT INTO myfootballinfo (username, internationalteam, clubteam, player) values ('" + username + "','" + internationalTeam + "','" + clubTeam + "','" + player + "');";
+            String query = "INSERT INTO myfootballinfo (username, internationalteam, clubteam, player) values ('" + user.Username + "','" + user.InternationalTeam + "','" + user.ClubTeam + "','" + user.Player + "');";
 
             try
             {
-                using (MySqlCommand mySqlCommand=new MySqlCommand(query, DataAccessLayer.Instance.Connection))
+                using (MySqlCommand mySqlCommand = new MySqlCommand(query, DataAccessLayer.Instance.Connection))
                 {
                     mySqlCommand.ExecuteNonQuery();
                 }
@@ -100,6 +63,64 @@ namespace WPF_Form_With_Database
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, this.ToString() + " Insert Data Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public List<User> searchName(String name)
+        {
+            List<User> userList = new List<User>();
+            DataAccessLayer.Instance.createDatabaseConnection();
+            String query = "SELECT id, username, player FROM myfootballinfo WHERE username REGEXP '^" + name + "';";
+
+            try
+            {
+                using (MySqlCommand mySqlCommand = new MySqlCommand(query, DataAccessLayer.Instance.Connection))
+                {
+                    MySqlDataReader dataReader = mySqlCommand.ExecuteReader();
+                    while(dataReader.Read())
+                    {
+                        User user = new User();
+                        user.ID = dataReader.GetInt32(0);
+                        user.Username = dataReader.GetString(1);
+                        user.Player = dataReader.GetString(2);
+                        userList.Add(user);
+                    }
+                    return userList;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.ToString() + " Search Name Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public User getAllInfo(int id)
+        {
+            DataAccessLayer.Instance.createDatabaseConnection();
+            String query = "SELECT id, username, internationalteam, clubteam, player FROM myfootballinfo WHERE id=" + id + ";";
+
+            try
+            {
+                using (MySqlCommand mySqlCommand = new MySqlCommand(query, DataAccessLayer.Instance.Connection))
+                {
+                    MySqlDataReader dataReader = mySqlCommand.ExecuteReader();
+                    User user = new User();
+                    if(dataReader.Read())
+                    {
+                        user.ID = dataReader.GetInt32(0);
+                        user.Username = dataReader.GetString(1);
+                        user.InternationalTeam = dataReader.GetString(2);
+                        user.ClubTeam = dataReader.GetString(3);
+                        user.Player = dataReader.GetString(4);
+                    }
+                    return user;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.ToString() + " Get All Info Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
             }
         }
 

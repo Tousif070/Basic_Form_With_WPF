@@ -31,6 +31,8 @@
             <Button x:Name="ExitButton" Grid.Row="3" Content="Exit" Margin="0,494,0,0" FontSize="18" FontFamily="helvetica" Background="#DC143C" Foreground="White" />
 
         </Grid>
+        
+        
 
         <StackPanel x:Name="FormPanel" Grid.Column="1" Background="#AADFFF" Visibility="Visible">
             
@@ -61,31 +63,57 @@
             <Button x:Name="SubmitButton" Content="Submit" Height="30" Width="90" Margin="375,30,0,0" FontSize="18" FontFamily="helvetica" Background="#4682B4" Foreground="White" />
 
         </StackPanel>
+        
+        
 
         <StackPanel x:Name="SearchPanel" Grid.Column="1" Background="#AADFFF" Visibility="Collapsed">
 
             <TextBlock Text="View Data From Database" Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="20" FontFamily="helvetica" />
 
+            <TextBlock x:Name="SecondAlert" Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="18" FontFamily="helvetica" Visibility="Collapsed" />
+
             <WrapPanel Margin="0,30,20,0" HorizontalAlignment="Center">
                 <Label Content="Enter Username:" FontSize="18" FontFamily="helvetica" />
-                <TextBox Margin="5,0,0,0" Width="250" FontSize="18" FontFamily="helvetica" />
-                <Button Content="Search" Width="80" Margin="10,0,0,0" FontSize="18" FontFamily="helvetica" Background="#4682B4" Foreground="White" />
+                <TextBox x:Name="SearchTbx" Margin="5,0,0,0" Width="250" FontSize="18" FontFamily="helvetica" />
+                <Button x:Name="SearchButton" Content="Search" Width="80" Margin="10,0,0,0" FontSize="18" FontFamily="helvetica" Background="#4682B4" Foreground="White" />
             </WrapPanel>
 
-            <StackPanel x:Name="DataOutputPanel" Background="#AADFFF" Visibility="Collapsed">
+            <DataGrid x:Name="UserDG" IsReadOnly="True" Width="400" Margin="0,30,0,0" AutoGenerateColumns="False" FontSize="16" FontFamily="helvetica" Visibility="Collapsed">
+                <DataGrid.Columns>
+                    
+                    <DataGridTemplateColumn Header="ID">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding ID}" Height="30" Width="30" Click="SeeMoreInfo" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Header="Username" Binding="{Binding Username}" />
+                    <DataGridTextColumn Header="Favorite Player" Binding="{Binding Player}" />
+                </DataGrid.Columns>
+            </DataGrid>
 
-                <TextBlock Text="Data" Margin="0,30,10,0" HorizontalAlignment="Center" FontSize="20" FontFamily="helvetica" />
+        </StackPanel>
+        
+        
 
-                <Label Content="Username: " Margin="10,20,0,0" FontSize="16" FontFamily="helvetica" />
-                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
-                <Label Content="Favorite Football Team (Intl.): " Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
-                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
-                <Label Content="Favorite Football Team (Club): " Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
-                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
-                <Label Content="Favorite Football Player: " Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
-                <TextBlock TextWrapping="Wrap" FontSize="16" FontFamily="helvetica" />
-                
-            </StackPanel>
+        <StackPanel x:Name="DataOutputPanel" Grid.Column="1" Background="#AADFFF" Visibility="Collapsed">
+
+            <TextBlock Text="Full Information" Margin="0,30,10,0" HorizontalAlignment="Center" FontSize="20" FontFamily="helvetica" />
+
+            <Label Content="ID:" Margin="10,20,0,0" FontSize="16" FontFamily="helvetica" />
+            <TextBox x:Name="FITbx1" TextWrapping="Wrap" IsReadOnly="True" Height="28" Width="300" FontSize="16" FontFamily="helvetica" />
+            <Label Content="Username:" Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+            <TextBox x:Name="FITbx2" TextWrapping="Wrap" IsReadOnly="True" Height="28" Width="300" FontSize="16" FontFamily="helvetica" />
+            <Label Content="Favorite Football Team (Intl.):" Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+            <TextBox x:Name="FITbx3" TextWrapping="Wrap" IsReadOnly="True" Height="28" Width="300" FontSize="16" FontFamily="helvetica" />
+            <Label Content="Favorite Football Team (Club):" Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+            <TextBox x:Name="FITbx4" TextWrapping="Wrap" IsReadOnly="True" Height="28" Width="300" FontSize="16" FontFamily="helvetica" />
+            <Label Content="Favorite Football Player:" Margin="10,0,0,0" FontSize="16" FontFamily="helvetica" />
+            <TextBox x:Name="FITbx5" TextWrapping="Wrap" IsReadOnly="True" Height="28" Width="300" FontSize="16" FontFamily="helvetica" />
+
+            <Button x:Name="GoBackButton" Content="Go Back" Margin="440,-580,0,0" Height="22" Width="65" FontSize="14" FontFamily="helvetica" Background="#E6E6FA" />
 
         </StackPanel>
 

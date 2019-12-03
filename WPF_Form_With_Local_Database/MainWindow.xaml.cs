@@ -30,6 +30,8 @@ namespace WPF_Form_With_Database
             FormMenuButton.Click += new RoutedEventHandler(FormMenuButton_Click);
             SearchInfoMenuButton.Click += new RoutedEventHandler(SearchInfoMenuButton_Click);
             SubmitButton.Click += new RoutedEventHandler(SubmitButton_Click);
+            SearchButton.Click += new RoutedEventHandler(SearchButton_Click);
+            GoBackButton.Click += new RoutedEventHandler(GoBackButton_Click);
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs ex)
@@ -53,17 +55,18 @@ namespace WPF_Form_With_Database
 
         private void SubmitButton_Click(object sender, RoutedEventArgs ex)
         {
-            form.Username = FormTbx1.Text;
-            form.InternationalTeam = FormTbx2.Text;
-            form.ClubTeam = FormTbx3.Text;
-            form.Player = FormTbx4.Text;
+            User user = new User();
+            user.Username = FormTbx1.Text;
+            user.InternationalTeam = FormTbx2.Text;
+            user.ClubTeam = FormTbx3.Text;
+            user.Player = FormTbx4.Text;
 
-            if(!form.checkEmpty())
+            if(!form.checkEmpty(user))
             {
-                String returnValue = form.checkUsername();
+                String returnValue = form.checkUsername(user.Username);
                 if(returnValue.Equals("username does not exist"))
                 {
-                    form.insertData();
+                    form.insertData(user);
                     Alert.Text = "Data Stored Successfully";
                     Alert.Foreground = new SolidColorBrush(Color.FromRgb(0, 153, 0));
                     Alert.Visibility = Visibility.Visible;
@@ -93,6 +96,82 @@ namespace WPF_Form_With_Database
                 Alert.Visibility = Visibility.Visible;
             }
 
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs ex)
+        {
+            List<User> userList = new List<User>();
+            User user = new User();
+            user.Username = SearchTbx.Text;
+
+            if(!user.Username.Equals(""))
+            {
+                userList = form.searchName(user.Username);
+
+                if(userList != null)
+                {
+                    if(userList.Count != 0)
+                    {
+                        SecondAlert.Text = "Results Found";
+                        SecondAlert.Foreground = new SolidColorBrush(Color.FromRgb(0, 153, 0));
+                        SecondAlert.Visibility = Visibility.Visible;
+                        UserDG.ItemsSource = userList;
+                        UserDG.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        SecondAlert.Text = "No Result Found";
+                        SecondAlert.Foreground = new SolidColorBrush(Color.FromRgb(211, 47, 47));
+                        SecondAlert.Visibility = Visibility.Visible;
+                        UserDG.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    SecondAlert.Text = "Connection Error! Please Try Again Later";
+                    SecondAlert.Foreground = new SolidColorBrush(Color.FromRgb(211, 47, 47));
+                    SecondAlert.Visibility = Visibility.Visible;
+                    UserDG.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                SecondAlert.Text = "The Search Field Is Empty";
+                SecondAlert.Foreground = new SolidColorBrush(Color.FromRgb(211, 47, 47));
+                SecondAlert.Visibility = Visibility.Visible;
+                UserDG.Visibility = Visibility.Collapsed;
+            }
+
+        }
+
+        private void SeeMoreInfo(object sender, RoutedEventArgs ex)
+        {
+            String objString = ex.Source.ToString();
+            String[] portion = objString.Split(' ');
+            User user = new User();
+            user.ID = Int32.Parse(portion[1]);
+            user = form.getAllInfo(user.ID);
+
+            if(user != null)
+            {
+                FITbx1.Text = user.ID.ToString();
+                FITbx2.Text = user.Username;
+                FITbx3.Text = user.InternationalTeam;
+                FITbx4.Text = user.ClubTeam;
+                FITbx5.Text = user.Player;
+                DataOutputPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SecondAlert.Text = "Connection Error! Please Try Again Later";
+                SecondAlert.Foreground = new SolidColorBrush(Color.FromRgb(211, 47, 47));
+                SecondAlert.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void GoBackButton_Click(object sender, RoutedEventArgs ex)
+        {
+            DataOutputPanel.Visibility = Visibility.Collapsed;
         }
 
     }
